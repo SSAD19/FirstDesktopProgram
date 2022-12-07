@@ -1,0 +1,38 @@
+ALTA PRODUCTO: 
+@"INSERT INTO productos (Nombre, idproveedor, preciounit, stock, bajalog) 
+        VALUES ('" + prod.nombre + "', '" + prod.idproveedor + "', '" + prod.preciounit + "', '"  + prod.stock + "', 'true')";
+
+MODIFICAR PRODUCTO : 
+@"UPDATE productos SET Nombre='" + prod.nombre + "', idproveedor='" + prod.idproveedor + "', preciounit='" + prod.preciounit + "', stock='"  + prod.preciounit + "', bajalog='" + prod.bajalog + "'WHERE ID = '" + id + "'";
+
+BAJA LOGICA PRODUCTO: 
+@"UPDATE productos SET  bajalog='" + prod.bajalog + "'WHERE ID = '" + xid + "'";
+
+
+@"Select from productos where Nombre like '" + buscar +"'%'";
+
+
+VENTAS DETALLES 
+
+
+SELECT   items.cantidad, items.subtotal, items.bajalog, productos.Nombre, ventas.ticket, ventas.fecha, ventas.bajalog AS Expr1
+FROM items INNER JOIN productos ON items.idproducto = productos.idproducto 
+INNER JOIN ventas ON items.idventa = ventas.idventa
+
+
+WHERE ventas.fecha = '" + Selecfecha + "'; 
+
+WHERE ventas.ticket like '" + buscar + "%' OR productos.Nombre like '" + txtbuscar.Text + "%'"
+
+
+
+Public Datatable traerDatos (){
+ AccesoDatos.BaseDatos traer = new AccesoDatos.BaseDatos();
+            string comando = @"Select* from productos";
+
+            DataTable Tabla = new DataTable();
+            Tabla = traer.recuperarDB(comando);
+
+	return Tabla; 
+
+}
